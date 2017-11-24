@@ -1,7 +1,8 @@
 <h1>Pictures</h1>
 <%= link_to("New Picture", "/pictures/new") %>
 
-<% @pictures.each do |picture| %>
-  <p><%= picture.title %>, <%= picture.artist %></p>
-  <%= link_to(image_tag(picture.url), "/pictures/#{picture.id}") %>
-<% end %>
+<%= render 'display_pictures', pictures: @pictures %>
+
+<hr>
+<h3>There are <%= @old_pictures.count %> Pictures from more than 1 month ago</h3>
+<%= render 'display_pictures', pictures: @old_pictures %>
