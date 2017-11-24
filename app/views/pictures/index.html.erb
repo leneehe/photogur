@@ -6,3 +6,11 @@
 <hr>
 <h3>There are <%= @old_pictures.count %> Pictures from more than 1 month ago</h3>
 <%= render 'display_pictures', pictures: @old_pictures %>
+
+<hr>
+
+<% @years.each do |year| %>
+  <h2><%= year %></h2>
+  <% @year_pictures = Picture.pictures_created_in_year(year) %>
+  <%= render 'display_pictures', pictures: @year_pictures %>
+<% end %>
