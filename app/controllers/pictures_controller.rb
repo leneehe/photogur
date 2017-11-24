@@ -5,8 +5,14 @@ class PicturesController < ApplicationController
 
     last_month = DateTime.current.prev_month
     @old_pictures = Picture.created_before(last_month)
+
     @years = Picture.years_created
-    # @year_pictures = Picture.pictures_created_in_year(@year)
+    @all_year_pictures = {}
+    @years.each do |year|
+      year_pictures = Picture.pictures_created_in_year(year)
+      @all_year_pictures[year] = year_pictures
+    end
+
   end
 
   def show

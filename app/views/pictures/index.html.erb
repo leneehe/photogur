@@ -11,6 +11,6 @@
 
 <% @years.each do |year| %>
   <h2><%= year %></h2>
-  <% @year_pictures = Picture.pictures_created_in_year(year) %>
-  <%= render 'display_pictures', pictures: @year_pictures %>
+  <% year_pictures = @all_year_pictures[year] %>
+  <%= render 'display_pictures', pictures: year_pictures %>
 <% end %>
