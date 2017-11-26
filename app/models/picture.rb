@@ -1,16 +1,12 @@
 class Picture < ApplicationRecord
 
-  def self.newest_first
-    Picture.order("created_at DESC")
-  end
+  validates :artist, :url, presence: true
+  validates :title, length: { in: 3..20 }
+  validates :url, uniqueness: true
 
-  def self.most_recent_five
-    Picture.newest_first.limit(5)
-  end
-
-  def self.created_before(time)
-    Picture.where("created_at < ?", time)
-  end
+  scope :newest_first, -> { order("created_at DESC") }
+  scope :most_recent_five, -> { newest_first.limit(5) }
+  scope :created_before, -> (time) { where("created_at < ?", time) }
 
   def self.pictures_created_in_year(year)
     year = DateTime.new(year)
