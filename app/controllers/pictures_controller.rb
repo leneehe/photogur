@@ -29,6 +29,7 @@ class PicturesController < ApplicationController
     @picture.title = params[:picture][:title]
     @picture.artist = params[:picture][:artist]
     @picture.url = params[:picture][:url]
+    @picture.user_id = current_user.id
 
     if @picture.save
       # if the picture gets saved, generate a get request to "/pictures" (the index)
