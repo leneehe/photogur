@@ -25,11 +25,7 @@ class PicturesController < ApplicationController
   end
 
   def create
-    @picture = Picture.new
-
-    @picture.title = params[:picture][:title]
-    @picture.artist = params[:picture][:artist]
-    @picture.url = params[:picture][:url]
+    @picture = Picture.new(picture_params)
     @picture.user_id = current_user.id
 
     if @picture.save
@@ -46,10 +42,10 @@ class PicturesController < ApplicationController
   end
 
   def update
-
-    @picture.title = params[:picture][:title]
-    @picture.artist = params[:picture][:artist]
-    @picture.url = params[:picture][:url]
+    @picture.update(picture_params)
+    # @picture.title = params[:picture][:title]
+    # @picture.artist = params[:picture][:artist]
+    # @picture.url = params[:picture][:url]
 
     if @picture.save
       redirect_to "/pictures/#{@picture.id}"
@@ -66,6 +62,10 @@ class PicturesController < ApplicationController
   private
   def load_picture
     @picture = Picture.find(params[:id])
+  end
+
+  def picture_params
+    params.require(:picture).permit(:title, :artist, :url)
   end
 
 end
